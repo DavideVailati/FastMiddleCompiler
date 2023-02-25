@@ -66,3 +66,5 @@ $example/path2
 }
 ```
 JSON1 will be compiled into example/path1, and JSON2 in example/path2.
+In runtime, `bp` and `rp` will be replaced with the correct paths, depending on the contents of `rootPath.txt`.
+For example `$bp/entities/example.json` will become `C:/escherProjects/exampleProject/0. Behaviour Pack-BP/entities/example.json`
