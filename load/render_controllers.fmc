@@ -1,0 +1,63 @@
+!!multipleTexturesRc:
+{
+    //version()//,
+    "render_controllers":{
+        "controller.render.$1":{
+            "ignore_lighting": true,
+            "arrays": {
+                "textures": {
+                    "array.skins":[
+                        //for(#,$2,
+                            "texture.skin#"
+                        )//
+                    ]
+                }
+            },
+            "textures": ["Array.skins[v.skin]"],
+            "geometry": "geometry.default",
+            "materials": [{"*": "Material.default"}]
+        }
+    }
+}
+!!multipleTexturesRc:
+{
+    //version()//,
+    "render_controllers":{
+        "controller.render.$1":{
+            "ignore_lighting": true,
+            "arrays": {
+                "textures": {
+                    "array.skins":[
+                        //for(#,$2,
+                            "texture.skin#"
+                        )//
+                    ]
+                }
+            },
+            "textures": ["Array.skins[v.$3]"],
+            "geometry": "geometry.default",
+            "materials": [{"*": "Material.default"}]
+        }
+    }
+}
+!!multipleTexturesRc:
+{
+    //version()//,
+    "render_controllers":{
+        "controller.render.$1":{
+            "ignore_lighting": true,
+            "arrays": {
+                "textures": {
+                    "array.skins":[
+                        //for(#,$2,
+                            "texture.$3#"
+                        )//
+                    ]
+                }
+            },
+            "textures": ["Array.skins[v.$4]"],
+            "geometry": "geometry.default",
+            "materials": [{"*": "Material.default"}]
+        }
+    }
+}

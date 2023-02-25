@@ -1,0 +1,65 @@
+!!randomStroll:
+"minecraft:behavior.random_stroll": {
+    "interval": 50,
+    "xz_dist": 3,
+    "y_dist": 7
+}
+!!randomStroll:
+"minecraft:behavior.random_stroll": {
+    "interval": $1,
+    "xz_dist": 3,
+    "y_dist": 7
+}
+!!randomStroll:
+"minecraft:behavior.random_stroll": {
+    "interval": $1,
+    "xz_dist": $2,
+    "y_dist": 7
+}
+!!movement:
+"minecraft:movement": {
+    "value": $1
+},
+"minecraft:movement.basic": {
+    "max_turn": 30
+}
+!!movement:
+"minecraft:movement": {
+    "value": [$1,$2]
+},
+"minecraft:movement.basic": {
+    "max_turn": 30
+}
+!!movement:
+"minecraft:movement": {
+    "value": [$1,$2]
+},
+"minecraft:movement.basic": {
+    "max_turn": $3
+}
+!!movement:
+"minecraft:movement": {
+    "value": [$1,$2]
+},
+"minecraft:movement.$3": {
+    "max_turn": $4
+}
+!!navigation:
+"minecraft:navigation.walk":{}
+!!navigation:
+"minecraft:navigation.$1":{}
+!!fly:
+"minecraft:behavior.float": {
+"priority": 0
+},
+"minecraft:behavior.float_wander": {
+"xz_dist": 10,
+"y_dist": 7,
+"y_offset": -2.0,
+"random_reselect": true,
+"float_duration": [ 0.1, 0.35 ]
+},
+"minecraft:can_fly": {
+},
+"minecraft:jump.static": {
+}

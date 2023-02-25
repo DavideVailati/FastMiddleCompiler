@@ -1,0 +1,23 @@
+!!collisionBox:
+"minecraft:collision_box": {
+    "height": $1,
+    "width": $1
+}
+!!collisionBox:
+"minecraft:collision_box": {
+    "height": $1,
+    "width": $2
+}
+!!physics:
+"minecraft:physics":{}
+!!noDmg:
+"minecraft:damage_sensor": {
+    "triggers": [
+        {
+            "cause": "all",
+            "deals_damage": false
+        }
+    ]
+}
+!!instDespawn:
+"minecraft:instant_despawn":{}
