@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"os"
 	"regexp"
 	"strings"
@@ -37,9 +38,16 @@ func main() {
 	input := fileToStr("input.fmc")
 	fb := bufio.NewScanner(strings.NewReader(input))
 	fb.Scan()
+	FSettings, _ := os.Open("settings.json")
+	FBSettings, _ := io.ReadAll(FSettings)
+	settings := make(map[string]string)
+	err := json.Unmarshal(FBSettings, &settings)
+	if err != nil {
+		panic(err)
+	}
 	filePath := replaceMap(fb.Text()[1:], map[string]string{
-		"bp/": fileToStr("rootPath.txt") + "0. Behaviour Pack-BP/",
-		"rp/": fileToStr("rootPath.txt") + "1. Resource Pack-RP/",
+		"bp/": settings["root"] + settings["bp"],
+		"rp/": settings["root"] + settings["rp"],
 	})
 	f, _ := os.Create(filePath)
 	toWrite := ""
@@ -58,8 +66,8 @@ func main() {
 			}
 			toWrite = ""
 			filePath = replaceMap(fb.Text()[1:], map[string]string{
-				"bp/": fileToStr("rootPath.txt") + "0. Behaviour Pack-BP/",
-				"rp/": fileToStr("rootPath.txt") + "1. Resource Pack-RP/",
+				"bp/": settings["root"] + settings["bp"],
+				"rp/": settings["root"] + settings["rp"],
 			})
 			f, _ = os.Create(filePath)
 		} else {
@@ -67,7 +75,7 @@ func main() {
 		}
 	}
 
-	_, err := f.WriteString(submitLine(toWrite, cmdmap))
+	_, err = f.WriteString(submitLine(toWrite, cmdmap))
 	if err != nil {
 		panic(err)
 	}
