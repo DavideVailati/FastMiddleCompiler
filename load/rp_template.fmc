@@ -1,0 +1,33 @@
+!!rpEntity:
+{
+  //version()//,
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": //nsfmt($2)//,
+      "materials": {
+        "default": "skeleton"
+      },
+      "textures": {
+        "default": "textures/entity/$1/$2"
+      },
+      "geometry": {
+        "default": "geometry.$2"
+      },
+      "animations": {
+        "idle":"animation.$3
+      },
+      "scripts": {
+        "animate":[
+          "idle"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ],
+      "spawn_egg": {
+        "base_color": "#288483",
+        "overlay_color": "#2B7135"
+      }
+    }
+  }
+}

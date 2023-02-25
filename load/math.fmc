@@ -1,0 +1,6 @@
+!!randInt:
+math.random_integer($1,$2)
+!!cos:
+math.cos($1)
+!!parenthesis:
+($1)

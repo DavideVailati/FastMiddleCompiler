@@ -1,0 +1,31 @@
+!!add:
+//obj($1,//"add":{"component_groups":["//nmspc()//:$1"]}//)//
+!!add:
+//obj($1,//"add":{"component_groups":["//nmspc()//:$2"]}//)//
+
+!!bpname:
+"identifier": //nsfmt($1)//,
+"is_spawnable": true,
+"is_summonable": true
+
+!!int:
+"//nmspc()//:$1":{
+    "client_sync": true,
+    "default": 0,
+    "type": "int",
+    "range": [0, $2]
+}
+
+!!obj:
+"//nmspc()//:$1":{
+    $2
+}
+
+!!version:
+"format_version":"1.19.60"
+
+!!nmspc:
+blockception
+
+!!nsfmt:
+"//nmspc()//:$1"
