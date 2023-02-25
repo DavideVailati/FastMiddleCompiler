@@ -8,4 +8,8 @@ First clone the repository in any folder
 ```shell
 git clone https://github.com/DavideVailati/FastMiddleCompiler.git
 ```
-Then
+Then go in the directory
+```shell
+cd FastMiddleCompiler
+```
+Execute the setup bat file
