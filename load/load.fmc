@@ -24,8 +24,11 @@
 !!version:
 "format_version":"1.19.60"
 
+!!version:
+"format_version":"$1"
+
 !!nmspc:
-blockception
+galaxite
 
 !!nsfmt:
 "//nmspc()//:$1"

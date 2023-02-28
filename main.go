@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"io"
 	"os"
 	"regexp"
@@ -23,65 +22,77 @@ func submitLine(line string, cmdmap map[string]string) string {
 		}
 	}
 	final := replaceMap(line, map[string]string{"£": ",", "ò": "(", "ç": ")", "//": ""})
-	var prettyJSON bytes.Buffer
-	err := json.Indent(&prettyJSON, []byte(final), "", "  ")
-	if err != nil {
-		fmt.Printf("\n" + final)
-		panic(err)
-	}
 
-	return prettyJSON.String()
+	return final
+}
+func getPath(in string) string {
+	filePath := replaceMap(in, map[string]string{
+		"bp/": settings["root"] + settings["bp"],
+		"rp/": settings["root"] + settings["rp"],
+	})
+	return filePath
+}
+
+var settings map[string]string
+
+func PrettyString(str string) (string, error) {
+	var prettyJSON bytes.Buffer
+	if err := json.Indent(&prettyJSON, []byte(str), "", "  "); err != nil {
+		return "", err
+	}
+	return prettyJSON.String(), nil
 }
 
 func main() {
 	arrayStack = make(map[string][]string)
-	input := fileToStr("input.fmc")
+	input := "start()\n" + fileToStr("input.fmc")
 	fb := bufio.NewScanner(strings.NewReader(input))
 	fb.Scan()
 	FSettings, _ := os.Open("settings.json")
 	FBSettings, _ := io.ReadAll(FSettings)
-	settings := make(map[string]string)
+	settings = make(map[string]string)
 	err := json.Unmarshal(FBSettings, &settings)
 	if err != nil {
 		panic(err)
 	}
-	filePath := replaceMap(fb.Text()[1:], map[string]string{
-		"bp/": settings["root"] + settings["bp"],
-		"rp/": settings["root"] + settings["rp"],
-	})
-	f, _ := os.Create(filePath)
-	toWrite := ""
 	cmdmap := loadMap("./")
+	finalTotal := ""
 
 	for fb.Scan() {
-		if strings.Contains(fb.Text(), "$") {
-
-			_, err := f.WriteString(submitLine(toWrite, cmdmap))
-			if err != nil {
-				panic(err)
-			}
-			err = f.Close()
-			if err != nil {
-				panic(err)
-			}
-			toWrite = ""
-			filePath = replaceMap(fb.Text()[1:], map[string]string{
-				"bp/": settings["root"] + settings["bp"],
-				"rp/": settings["root"] + settings["rp"],
-			})
-			f, _ = os.Create(filePath)
-		} else {
-			toWrite += replaceMap(fb.Text(), map[string]string{" ": "", "\t": ""})
+		finalTotal += replaceMap(fb.Text(), map[string]string{
+			" ":  "",
+			"\t": "",
+		})
+	}
+	elaboratedTotal := submitLine(finalTotal, cmdmap)
+	splitTotal := replaceMap(elaboratedTotal, map[string]string{
+		"$":      "\n$",
+		",$":     "\n$",
+		".json,": ".json",
+		".json":  ".json\n",
+	})
+	finalSplit := strings.Split(splitTotal, "$")[1:]
+	for _, k := range finalSplit {
+		k = replaceMap(k, map[string]string{
+			"\n": "",
+			"\r": "",
+		})
+		midSplit := strings.Split(k, ".json")
+		filePath := midSplit[0] + ".json"
+		filePath = getPath(filePath)
+		finalFile, err := os.Create(filePath)
+		if err != nil {
+			panic(err)
 		}
-	}
-
-	_, err = f.WriteString(submitLine(toWrite, cmdmap))
-	if err != nil {
-		panic(err)
-	}
-
-	err = f.Close()
-	if err != nil {
-		panic(err)
+		toWrite, err := PrettyString(midSplit[1])
+		if err != nil {
+			finalFile.WriteString(midSplit[1])
+			panic(err)
+		}
+		finalFile.WriteString(toWrite)
+		err = finalFile.Close()
+		if err != nil {
+			panic(err)
+		}
 	}
 }

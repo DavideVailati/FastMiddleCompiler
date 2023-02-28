@@ -42,7 +42,7 @@ func elaborateCommand(command string, mp map[string]string) string {
 		if forN, err := strconv.Atoi(forIndex); err == nil {
 			for i := 0; i < forN; i++ {
 				ret += strings.ReplaceAll(forBody, forChar, fmt.Sprintf("%d", i))
-				if i < forN-1 {
+				if i < forN-1 && forBody[0] != '$' {
 					ret += ","
 				}
 			}
@@ -50,7 +50,7 @@ func elaborateCommand(command string, mp map[string]string) string {
 			forArray := arrayStack[forIndex]
 			for i, j := range forArray {
 				ret += strings.ReplaceAll(forBody, forChar, fmt.Sprintf("%s", j))
-				if i < len(forArray)-1 {
+				if i < len(forArray)-1 && forBody[0] != '$' {
 					ret += ","
 				}
 			}

@@ -4,3 +4,7 @@ math.random_integer($1,$2)
 math.cos($1)
 !!parenthesis:
 ($1)
+!!hasItemQuery:
+q.is_item_name_any('slot.weapon.mainhand', 0, '//nmspc()//:$1')
+!!hasItemQuery:
+q.is_item_name_any('slot.$1', 0, '//nmspc()//:$2')
