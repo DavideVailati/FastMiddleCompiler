@@ -70,6 +70,7 @@ func main() {
 		",$":     "\n$",
 		".json,": ".json",
 		".json":  ".json\n",
+		"[!]":    " ",
 	})
 	finalSplit := strings.Split(splitTotal, "$")[1:]
 	for _, k := range finalSplit {
