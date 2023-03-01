@@ -87,10 +87,10 @@ func main() {
 		}
 		toWrite, err := PrettyString(midSplit[1])
 		if err != nil {
-			finalFile.WriteString(midSplit[1])
+			finalFile.WriteString(strings.ReplaceAll(midSplit[1], "dotjson", ".json"))
 			panic(err)
 		}
-		finalFile.WriteString(toWrite)
+		finalFile.WriteString(strings.ReplaceAll(toWrite, "dotjson", ".json"))
 		err = finalFile.Close()
 		if err != nil {
 			panic(err)
